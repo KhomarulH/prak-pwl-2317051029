@@ -60,6 +60,33 @@
             background-color: #f1f1f1;
         }
 
+        .btn-edit {
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn-edit:hover {
+            background-color: #0b7dda;
+        }
+
+        .btn-delete {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .btn-delete:hover {
+            background-color: #da190b;
+        }
+
         .no-data {
             text-align: center;
             padding: 20px;
@@ -68,30 +95,37 @@
     </style>
 
     <div class="container">
-        <h1>Daftar Pengguna</h1>
+        <h1>Daftar Mata Kuliah</h1>
 
-        <a href="{{ route('users.create') }}" class="btn-add">+ Tambah Pengguna</a>
+        <a href="{{ route('matakuliah.create') }}" class="btn-add">+ Tambah Mata Kuliah</a>
 
         <table>
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nama</th>
-                    <th>Nim</th>
-                    <th>Kelas</th>
+                    <th>Nama Mata Kuliah</th>
+                    <th>SKS</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse($users as $user)
+                @forelse ($mks as $mk)
                     <tr>
-                        <td>{{ $user->id }}</td>
-                        <td>{{ $user->nama }}</td>
-                        <td>{{ $user->nim }}</td>
-                        <td>{{ $user->nama_kelas }}</td>
+                        <td>{{ $mk->id }}</td>
+                        <td>{{ $mk->nama_mk }}</td>
+                        <td>{{ $mk->sks }}</td>
+                        <td>
+                            <a href="{{ route('matakuliah.edit', $mk->id) }}" class="btn-edit">Edit</a>
+                            <form action="{{ route('matakuliah.destroy', $mk->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn-delete" onclick="return confirm('Yakin ingin menghapus mata kuliah ini?')">Delete</button>
+                            </form>
+                        </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="no-data">Belum ada data pengguna</td>
+                        <td colspan="4" class="no-data">Belum ada data mata kuliah</td>
                     </tr>
                 @endforelse
             </tbody>
