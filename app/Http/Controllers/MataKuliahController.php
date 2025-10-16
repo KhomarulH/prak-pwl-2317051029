@@ -30,9 +30,35 @@ class MataKuliahController extends Controller
 
     }
 
+    public function edit($id){
+        $mk = MataKuliah::findorFail($id);
+        return view('create_mk', ['title' => 'EDIT MATA KULIAH', 'mk' => $mk]);
+
+    }
+
+    public function update(Request $request, $id){
+        $request->validate([
+            'nama_mk' => 'required',
+            'sks' => 'required|integer|min:1|max:6',
+        ]);
+        
+        $mk = MataKuliah::findorFail($id);
+        $mk->update([
+            'nama_mk' => $request->input('nama_mk'),
+            'sks' => $request->input('sks'),
+        ]);
 
 
+        return redirect()-> to('/matakuliah')->with('success','Data Berhasil Diperbarui');
+    }
+
+    public function destroy($id){
+        $mk = MataKuliah::findorFail($id);
+        $mk->delete();
+
+        return redirect()->to('/matakuliah')->with('success','Data Berhasil Dihapus');
+    }
         
 };
-    //
+    
 

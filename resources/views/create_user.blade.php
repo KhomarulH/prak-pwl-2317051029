@@ -21,7 +21,7 @@
 
             <div style="margin-bottom: 15px;">
                 <label for="nama_kelas" style="display:block; font-weight:bold; margin-bottom:5px;">Kelas</label>
-                <input type="text" name="nama_kelas" id="nama_kelas" required
+                <input type="text" name="kelas" id="kelas" required
                        style="width:100%; padding:10px; border:1px solid #ccc; border-radius:5px;">
             </div>
 
